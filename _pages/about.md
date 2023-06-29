@@ -1,14 +1,14 @@
 ---
 permalink: /
 title: "Weihan Luo"
-excerpt: "About me"
+excerpt: "About"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
 ### About
-Hi! My name is Weihan Luo, and I am a fourth-year undergraduate student at the [University of Toronto] (https://www.utoronto.ca), studying applied mathematics, statistics, and computer science. I'm currently interning as a Data Scientist at RBC.
+Hi! My name is Weihan Luo, and I am a fourth-year undergraduate student at the [University of Toronto] (https://www.utoronto.ca/), studying applied mathematics, statistics, and computer science. I'm currently interning as a Data Scientist at RBC.
 
 ### Research Goals
 I'm interested in Multimodal learning, Neural Radiance Fields (NeRFs), and Model Compression. Recently, I've presented a paper on filter pruning for pre-trained CNNs by leveraging the information contained in feature maps via the frequency domain at a workshop at CVPR 2023.
