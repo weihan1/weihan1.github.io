@@ -83,9 +83,9 @@ author:
   name             : "Weihan Luo"
   avatar           : "profile.png"
   bio              : "Undergraduate student at the University of Toronto"
-  location         : "Location"
+  location         : "Toronto"
   employer         :
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : 
   googlescholar    : "http://yourfullgooglescholarurl.com"
   email            :
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
