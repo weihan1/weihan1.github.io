@@ -87,7 +87,7 @@ author:
   employer         :
   pubmed           : 
   googlescholar    : "https://scholar.google.com/citations?user=SSLDPD8AAAAJ&hl=en"
-  email            :
+  email            : 
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -115,7 +115,7 @@ author:
   xing             :
   youtube          :
   wikipedia        :
-  ChessBase        : "https://players.chessbase.com/en/player/Luo_Wei%20Han/623567"
+  chessbase        : "https://players.chessbase.com/en/player/Luo_Wei%20Han/623567"
 
 
 # Reading Files
