@@ -22,7 +22,7 @@ Work experience
 
 
 
-* Summer 2022-Winter 2023: Data Analyst (May 2022 - April 2023)
+* Summer 2022-Winter 2023: Data Analyst @ RBC (May 2022 - April 2023)
   * Extracted and analyzed large-scale credit card data using SQL queries in SAS.
   * Developed comprehensive visualizations and reports on client attrition for the RBC Avion cards portfolio.
   * Impacted a $14 billion dollars portfolio with 8 million accounts with my generated insights.
