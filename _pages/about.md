@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Weihan Luo ![Handwritten name](images/Drawing.jpeg)"
+title: "Weihan Luo <img src='Drawing.jpeg' alt='Handwritten Chinese Name' width='200' height='200'>"
 excerpt: "About"
 author_profile: true
 redirect_from: 
