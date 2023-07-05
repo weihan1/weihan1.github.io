@@ -9,6 +9,9 @@ redirect_from:
 
 {% include base_path %}
 
+View my [Resume](https://drive.google.com/file/d/1e070vhHV9AnameoNRBtbX5SqrnBk7wnN/view?usp=sharing).
+Below is a summary.
+
 Education
 ======
 * B.S. in Applied Mathematics, Statistics, and Computer Science, 2024 (expected)
