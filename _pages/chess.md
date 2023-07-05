@@ -6,4 +6,4 @@ author_profile: true
 ---
 {% include base_path %}
 
-[Funny](./images/board.gif)
+[Funny](../images/board.gif)
