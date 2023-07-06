@@ -6,4 +6,4 @@ author_profile: true
 ---
 {% include base_path %}
 
-![](../images/board.gif)
+![](../images/board.gif?cache=refresh)
