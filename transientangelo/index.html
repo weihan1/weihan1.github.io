@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Transientangelo: Few-Viewpoint Surface Reconstruction Using Single-Photon Lidar</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="data/assets/css/styles.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="media/scene_pics/jfk_32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/scene_pics/jfk_16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <meta property="og:site_name" content="Transientangelo" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="Transientangelo: Few-Viewpoint Surface Reconstruction Using Single-Photon Lidar" />
+    <meta property="og:description" content="Transientangelo: Few-Viewpoint Surface Reconstruction Using Single-Photon Lidar." />
+    <meta property="og:url" content="" />
+    <meta name="keywords" content="transientangelo, nerf, photon nerf, lidar, transient nerf, novel view synthesis, NVS">
+
+</head>
+
+<body>
+    <div class="highlight-clean" style="padding-bottom: 0px; padding-top: 20px;">
+        <div class="container" style="max-width: 1024px; margin-bottom: 20px">
+            <h1 class="text-center" style="font-size:35px;"><b>Transientangelo</b>: <br>Few-Viewpoint Surface Reconstruction
+                Using Single-Photon Lidar</h1>
+        </div>
+        <div class="container" style="max-width: 1024px; margin-bottom: 20px;">
+        <div class="authors">
+                <a href=https://weihan1.github.io/>
+                Weihan Luo<sup>1</sup>
+                <a href=https://anaghmalik.com/>
+                Anagh Malik<sup>1,2</sup>
+                </a>&nbsp;
+                <a href=https://davidlindell.com/>
+                David B. Lindell<sup>1, 2</sup>&nbsp;
+                </a>
+                <br>
+            </div>
+
+            <div class="affiliations">
+                <span><sup>1</sup> University of Toronto </span>
+                <span><sup>2</sup> Vector Institute </span>
+            </div>
+        </div>
+      <div id="container">
+             <div class="buttons" style="margin-top: 8px; margin-bottom: 8px;">
+                <a class="btn btn-light" role="button" href="index.html">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7h1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h11.5M7 14h6m-6 3h6m0-10h.5m-.5 3h.5M7 7h3v3H7V7Z"></path>
+                      </svg>
+
+                      Paper
+                </a>
+                <a class="btn btn-light" role="button" href="index.html">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
+                      </svg>
+                      
+                    Code
+                </a>
+
+                <a class="btn btn-light" role="button" href="index.html">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4"/>
+                      </svg>
+
+                                                
+                Dataset
+            </a> 
+
+
+            </div>
+          </div>
+        </div>
+    <div class="container" style="max-width: 768px;">
+        <div class="row captioned_videos">
+            <div class="col-md-12">
+                &nbsp;
+                <!-- <embed src="data/method.png" style="width: 100%" /> -->
+                <img src="data/teaser.png" alt="architecture" style="width: 100%">
+            </div>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>Abstract</h2>
+                    </div>
+                </div>
+                <p>
+                    <p align="justify">
+                        We consider the problem of few-viewpoint 3D surface
+                        reconstruction using raw measurements from a lidar system.
+                        Lidar captures 3D scene geometry by emitting pulses of light
+                        to a target and recording the speed-of-light time delay of
+                        the reflected light. However, conventional lidar systems do
+                        not output the raw, captured waveforms of backscattered
+                        light; instead, they pre-process these data into a 3D point
+                        cloud. Since this procedure typically does not accurately
+                        model the noise statistics of the system, exploit spatial pri-
+                        ors, or incorporate information about downstream tasks, it
+                        ultimately discards useful information that is encoded in raw
+                        measurements of backscattered light. Here, we propose to
+                        leverage raw measurements captured with a single-photon
+                        lidar system from multiple viewpoints to optimize a neu-
+                        ral surface representation of a scene. The measurements
+                        consist of time-resolved photon count histograms, or tran-
+                        sients, which capture information about backscattered light
+                        at picosecond time scales. Additionally, we develop new
+                        regularization strategies that improve robustness to photon
+                        noise, enabling accurate surface reconstruction with as few
+                        as 10 photons per pixel. Our method outperforms other tech-
+                        niques for few-viewpoint 3D reconstruction based on depth
+                        maps, point clouds, or conventional lidar as demonstrated
+                        in simulation and with captured data
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Method</h2>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="col-md-12">
+                &nbsp;
+                <!-- <embed src="data/method.png" style="width: 100%" /> -->
+                <img src="data/method.png" alt="architecture" style="width: 100%">
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <p>
+          <p align="justify">Given few lidar (less than 5) scans of a scene, we optimize a surface-based representation that learns to reconstruct the 3D scene. We propose a weight variance regularization technique over the unseen viewpoints (bottom right blue box) that helps improve the overall quality of the reconstruction and a reflectivity loss (top right orange box; second term) that prevents divergence and ameliorates the results in the low-photon cases. Overall, our method achieves SOTA performance across both the simulated and captured dataset and is robust to as few as 10 photons per pixel (ppp).</p>
+          </div>
+        </div>
+    </div>
+
+
+   <hr class="divider"/>
+    <div class="container" style="max-width: 768px;">
+    <div class="row">
+            <div class="col-sm-12">
+                <h2>Surface Reconstruction</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col-4 compare-title">
+                <p>MonoSDF-M</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>TransientNeRF</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>Transientangelo (ours)</p>
+            </div>
+        </div>
+          <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/chair_final.mp4"></video>
+                </div>
+            </div>
+      </div>
+      <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/hotdog_final.mp4"></video>
+                </div>
+            </div>
+      </div>
+      <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/ficus_final.mp4"></video>
+                </div>
+            </div>
+            
+      </div>
+      <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/food_final.mp4"></video>
+                </div>
+            </div>
+            
+      </div>
+      <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/carving_final.mp4"></video>
+                </div>
+            </div>
+            
+      </div>
+      <div class="row captioned_videos">
+
+            <div class="col-12">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/mesh_videos/final_vids/cinema_final.mp4"></video>
+                </div>
+            </div>
+            
+      </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Simulated Results</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col-4 compare-title">
+                <p>MonoSDF-M</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>TransientNeRF</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>Transientangelo (ours)</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+        <div class="method-label"><p>Two views</p></div>
+          </div>
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/monosdf/chair-two-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/transientnerf/chair-two-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/ours/chair-two-views.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+        <div class="row mb-4 method-row">
+        <div class="method-label"><p>Three views</p></div>
+        </div>
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/monosdf/hotdog-three-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/transientnerf/hotdog-three-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/ours/hotdog-three-views.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+        <div class="row mb-4 method-row">
+        <div class="method-label"><p>Five views</p></div>
+        </div>
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/monosdf/ficus-five-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/transientnerf/ficus-five-views.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/simulated/ours/ficus-five-views.mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Captured Results</h2>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col-4 compare-title">
+                <p>MonoSDF-M</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>TransientNeRF</p>
+            </div>
+            <div class="col-4 compare-title">
+                <p>Transientangelo (ours)</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+        <div class="row mb-4 method-row">
+        <div class="method-label"><p>Two views</p></div>
+        </div>
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/monosdf/food-two-views-rev.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/transientnerf/food-two-views-rev.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/ours/food-two-views-rev.mp4"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row captioned_videos">
+        <div class="row mb-4 method-row">
+        <div class="method-label"><p>Three views</p></div>
+        </div>
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/monosdf/carving-three-views-rev.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/transientnerf/carving-three-views-rev.mp4"></video>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/ours/carving-three-views-rev.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+        <div class="row mb-4 method-row">
+        <div class="method-label"><p>Five views</p></div>
+        </div>
+                  <div class="col-4">
+                      <div class="video-compare-container" style="width: 100%">
+                          <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/monosdf/cinema-five-views-rev.mp4"></video>
+                      </div>
+                  </div>
+
+                  <div class="col-4">
+                      <div class="video-compare-container" style="width: 100%">
+                          <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/transientnerf/cinema-five-views-rev.mp4"></video>
+                      </div>
+                  </div>
+
+                  <div class="col-4">
+                      <div class="video-compare-container" style="width: 100%">
+                          <video class="video lazy" id="mav3d3" loop playsinline autoPlay muted src="media/static_videos/captured/ours/cinema-five-views-rev.mp4"></video>
+                      </div>
+                  </div>
+              </div>
+    </div>
+    <hr class="divider" />
+<div class="container" style="max-width: 768px;">
+    <div class="row">
+        <div class="col-12">
+            <h2>Low Photon Results</h2>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 0px;">
+            <div class="col-3 compare-title">
+                <p>10ppp</p>
+            </div>
+            <div class="col-3 compare-title">
+                <p>50ppp</p>
+            </div>
+            <div class="col-3 compare-title">
+                <p>150ppp</p>
+            </div>
+            <div class="col-3 compare-title">
+                <p>300ppp</p>
+            </div>
+    </div>
+    <div class="row captioned_videos">
+    <div class="row mb-4 method-row">
+        <div class="method-label"><p>TransientNeRF</p></div>
+        </div>
+        <div class="col-3">
+           <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/transientnerf/benches-three-views-10.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/transientnerf/benches-three-views-50.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/transientnerf/benches-three-views-150.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/transientnerf/benches-three-views-300.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+    </div>
+    <div class="row captioned_videos">
+    <div class="row mb-4 method-row">
+        <div class="method-label"><p>Ours</p></div>
+    </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/ours/benches-three-views-10.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/ours/benches-three-views-50.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/ours/benches-three-views-150.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/simulated/ours/benches-three-views-300.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+    </div>
+    <div class="row captioned_videos">
+    <div class="row mb-4 method-row">
+      <div class="method-label"><p>TransientNeRF</p></div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/transientnerf/cinema-three-views-10-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/transientnerf/cinema-three-views-50-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/transientnerf/cinema-three-views-150-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/transientnerf/cinema-three-views-300-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+    </div>
+    <div class="row captioned_videos">
+    <div class="row mb-4 method-row">
+        <div class="method-label"><p>Ours</p></div>
+        </div>
+        <div class="col-3">
+           <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/ours/cinema-three-views-10-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/ours/cinema-three-views-50-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/ours/cinema-three-views-150-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+        <div class="col-3">
+           <div class="video-compare-container" style="width: 100%; padding-top: 100%; margin-bottom: 10px;">                <video class="video lazy" loop playsinline autoplay muted src="media/static_videos/captured/ours/cinema-three-views-300-rev.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"></video>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h6 class="caption">
+                <p align="justify">
+              In the low photon setting, our method also shows superior performance in terms of image metrics. TransientNeRF exhibits color inconsistency as the photon level decreases, while our method is fairly robust.
+                </p>
+            </h6>
+        </div>
+    </div>
+</div>
+
+    <hr class="divider"/>
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Citation</h2>
+                <code>
+                    @article{luo2024transientangelo,<br>
+                    &nbsp; author = {Luo, Weihan and Malik, Anagh and Lindell, David B.},<br>
+                    &nbsp; title  = {Transientangelo: Few-Viewpoint Surface Reconstruction Using Single-Photon Lidar},<br>
+                    &nbsp; journal = {arXiv},<br>
+                    &nbsp; year   = {2024}<br>
+                }</code></div>
+        </div>
+    </div>
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <footer>
+            <p> Website template from <a href="https://dreamfusion3d.github.io/">DreamFusion</a>, <a href="https://mv-dream.github.io/">MVDream</a>.</p>
+        </footer>
+    </div>
+    <script src="data/assets/js/yall.js"></script>
+    <script>
+        yall(
+            {
+                observeChanges: true
+            }
+        );
+    </script>
+</body>
+
+</html>
