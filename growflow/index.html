@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Grow with the Flow: Modeling Plant Morphogenesis with 3D Gaussian Flow Fields</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="data/assets/css/styles.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="media/scene_pics/jfk_32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="media/scene_pics/jfk_16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <meta property="og:site_name" content="GrowFlow" />
+    <meta property="og:type" content="video.other" />
+    <meta property="og:title" content="Grow with the Flow: Modeling Plant Morphogenesis with 3D Gaussian Flow Fields" />
+    <meta property="og:description" content="Grow with the Flow: Modeling Plant Morphogenesis with 3D Gaussian Flow Fields"/>
+    <meta property="og:url" content="" />
+    <meta name="keywords" content="3D/4D reconstruction, Neural ODEs, NVS">
+
+</head>
+
+<body>
+    <div class="highlight-clean" style="padding-bottom: 0px; padding-top: 20px;">
+        <div class="container" style="max-width: 1024px; margin-bottom: 20px">
+            <h1 class="text-center" style="font-size:35px;"><b>Grow with the Flow</b>: <br>4D Reconstruction of Growing Plants
+            with Gaussian Flow Fields</h1>
+        </div>
+        <div class="container" style="max-width: 1024px; margin-bottom: 20px;">
+        <div class="authors">
+                <a href=https://weihan1.github.io/>
+                Weihan Luo<sup>1</sup>
+                <a href=https://lilygoli.github.io/>
+                Lily Goli<sup>1,2</sup>
+                </a>
+                <a href=https://sherwinbahmani.github.io/>
+                Sherwin Bahmani<sup>1,2</sup>
+                </a>
+                <a href=https://felixtaubner.github.io/>
+                Felix Taubner<sup>1,2</sup>
+                </a>
+                <a href=https://theialab.ca/>
+                Andrea Tagliasacchi<sup>1,3</sup>
+                </a>
+                <a href=https://davidlindell.com/>
+                David B. Lindell<sup>1,2</sup>&nbsp;
+                </a>
+                <br>
+        </div>
+
+        <div class="affiliations">
+            <span><sup>1</sup> University of Toronto </span>
+            <span><sup>2</sup> Vector Institute </span>
+            <span><sup>3</sup> Simon Fraser University </span>
+        </div>
+        </div>
+      <div id="container">
+             <div class="buttons" style="margin-top: 8px; margin-bottom: 8px;">
+                <a class="btn btn-light" role="button" href="https://arxiv.org/abs/2408.12191">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7h1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h11.5M7 14h6m-6 3h6m0-10h.5m-.5 3h.5M7 7h3v3H7V7Z"></path>
+                      </svg>
+
+                      Paper
+                </a>
+                <a class="btn btn-light" role="button" href="https://github.com/weihan1/growflow">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M12.006 2a9.847 9.847 0 0 0-6.484 2.44 10.32 10.32 0 0 0-3.393 6.17 10.48 10.48 0 0 0 1.317 6.955 10.045 10.045 0 0 0 5.4 4.418c.504.095.683-.223.683-.494 0-.245-.01-1.052-.014-1.908-2.78.62-3.366-1.21-3.366-1.21a2.711 2.711 0 0 0-1.11-1.5c-.907-.637.07-.621.07-.621.317.044.62.163.885.346.266.183.487.426.647.71.135.253.318.476.538.655a2.079 2.079 0 0 0 2.37.196c.045-.52.27-1.006.635-1.37-2.219-.259-4.554-1.138-4.554-5.07a4.022 4.022 0 0 1 1.031-2.75 3.77 3.77 0 0 1 .096-2.713s.839-.275 2.749 1.05a9.26 9.26 0 0 1 5.004 0c1.906-1.325 2.74-1.05 2.74-1.05.37.858.406 1.828.101 2.713a4.017 4.017 0 0 1 1.029 2.75c0 3.939-2.339 4.805-4.564 5.058a2.471 2.471 0 0 1 .679 1.897c0 1.372-.012 2.477-.012 2.814 0 .272.18.592.687.492a10.05 10.05 0 0 0 5.388-4.421 10.473 10.473 0 0 0 1.313-6.948 10.32 10.32 0 0 0-3.39-6.165A9.847 9.847 0 0 0 12.007 2Z" clip-rule="evenodd"/>
+                      </svg>
+                      
+                    Code
+                </a>
+
+                <a class="btn btn-light" role="button" href="https://huggingface.co/datasets/weihan1/growflow_data">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 19V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v13H7a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M9 3v14m7 0v4"/>
+                      </svg>
+                Dataset
+                </a> 
+                <a class="btn btn-light" role="button" href="https://huggingface.co/weihan1/growflow_checkpoints">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/>
+                    </svg>
+                    Weights
+                </a>
+
+
+    <div class="container" style="max-width: 1200px; margin-top: 60px; margin-bottom: 40px;">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-sm-12" style="text-align: center;">
+                <video width="80%" controls loop playsinline autoplay muted src="./data/demo.mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>Abstract</h2>
+                    </div>
+                </div>
+                <p>
+                    <p align="justify">
+                Modeling the time-varying 3D appearance of plants during their growth poses unique challenges: unlike many dynamic scenes, plants generate new geometry over time as they expand, branch, and differentiate.
+                Recent motion modeling techniques are ill-suited to this problem setting. 
+                For example, deformation fields cannot introduce new geometry, and 4D Gaussian splatting constrains motion to a linear trajectory in space and time and cannot track the same set of Gaussians over time.
+                Here, we introduce a 3D Gaussian flow field representation that models plant growth as a time-varying derivative over Gaussian parameters---position, scale, orientation, color, and opacity---enabling nonlinear and continuous-time growth dynamics.
+                To initialize a sufficient set of Gaussian primitives, we reconstruct the mature plant and learn a process of reverse growth, effectively simulating the plant’s developmental history in reverse.
+                Our approach achieves superior image quality and geometric accuracy compared to prior methods on multi-view timelapse datasets of plant growth, providing a new approach for appearance modeling of growing 3D structures.
+
+
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Method -->
+    <hr class="divider" />
+    <div class="container" style="max-width: 768px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Method</h2>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="col-md-12">
+                &nbsp;
+                <img src="data/method.png" alt="architecture" style="width: 100%">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p align="justify"><b>a)</b> Our method first optimizes a set of 3D Gaussians on the fully-grown plant. <b>b)</b> Using the optimized 3D Gaussians from the fully-grown plant, we progressively train the dynamics model to learn the state of the plant at each timestep. After each reconstructed timestep, we cache the Gaussians for that timestep and use them as initial conditions to optimize for the next timestep. <b>c)</b> During the global optimization step, we randomly sample a timestep <i>t<sub>k</sub></i> and integrate to <i>t<sub>k+1</sub></i>, leveraging the cached Gaussians from the boundary reconstruction step as initial conditions. We then optimize the dynamics model to enforce consistency between rendered and captured measurements.</p>
+            </div>
+        </div>
+    </div>
+
+<hr class="divider" />
+<div class="container" style="max-width: 1200px; margin-top: 60px; margin-bottom: 40px;">
+    <div class="row">
+        <div class="col-sm-12" style="text-align: center;">
+            <h1 style="font-weight: bold;">Hardware Prototype</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <p>The hardware system consists of a camera attached to a Raspberry Pi imaging a plant that sits on an automated turntable. Multi-view image measurements of the plant are automatically captured at 15-minute intervals without any human intervention.</p>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-12" style="text-align: center;">
+            <video width="80%" controls loop playsinline autoplay muted src="./data/hardware_annotated.mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!-- Synthetic results -->
+    <hr class="divider"/>
+    <div class="container" style="max-width: 1200px; margin-top: 60px; margin-bottom: 40px;">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center;">
+                <h1 style="font-weight: bold;">Synthetic Results</h1>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Interpolated Novel View Renders</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>We compare our method against baselines on interpolated novel view synthesis across seven scenes: <i>Clematis</i>, <i>Tulip</i>, and <i>Plant1-5</i>. All methods are trained on 12 equally spaced timesteps out of 70 total captured timesteps.</p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col compare-title" style="flex: 0 0 19%; text-align: center;">
+                <p>GT</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20%; text-align: center;">
+                <p>Ours</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20.5%; text-align: center;">
+                <p>Dynamic 3DGS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 18.5%; text-align: center;">
+                <p>4D-GS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20%; text-align: center;">
+                <p>4DGS</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Clematis</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/clematis/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Tulip</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/tulip/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant1</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_1/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant2</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_2/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant3</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_3/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant4</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_4/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant5</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_5/renders/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="divider" />
+    <div class="container" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Interpolated Point Cloud Trajectories</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>We compare interpolated point cloud trajectories across methods. Models are trained on 12 equally-spaced timesteps and evaluated on trajectory interpolation across all 70 timesteps.</p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <!-- <div class="col compare-title" style="flex: 0 0 19%; text-align: center;">
+                <p>GT</p>
+            </div> -->
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>Ours</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>Dynamic 3DGS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 23%; text-align: center;">
+                <p>4D-GS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>4DGS</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Clematis</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/clematis/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Tulip</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/tulip/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant1</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_1/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant2</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_2/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant3</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_3/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant4</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_4/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Plant5</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/plant_5/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   <!-- Captured results  -->
+    <hr class="divider"/>
+    <div class="container" style="max-width: 1200px; margin-top: 60px; margin-bottom: 40px;">
+        <div class="row">
+            <div class="col-sm-12" style="text-align: center;">
+                <h1 style="font-weight: bold;">Captured Results</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Interpolated Novel View Renders</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>We compare our method on the <i>Rose</i> and <i>Corn</i> scenes against baselines on interpolated novel view synthesis. For the rose, all methods are trained on 6 equally spaced timesteps out of a total of 86 captured timesteps. For the corn, all methods are trained on 8 equally-spaced timesteps out of 71 captured timesteps.</p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <div class="col compare-title" style="flex: 0 0 19%; text-align: center;">
+                <p>GT</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20%; text-align: center;">
+                <p>Ours</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20.5%; text-align: center;">
+                <p>Dynamic 3DGS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 18.5%; text-align: center;">
+                <p>4D-GS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 20%; text-align: center;">
+                <p>4DGS</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Rose novel view</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_rose/renders/concat/r_2/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Corn novel view</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_corn_full_subset4/renders/concat/r_2/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Captured point clouds -->
+    <hr class="divider" />
+    <div class="container" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Interpolated Point Cloud Trajectories</h2>
+            </div>
+        </div>
+        <div class="row">
+        </div>
+        <div class="row" style="margin-bottom: 0px;">
+            <!-- <div class="col compare-title" style="flex: 0 0 19%; text-align: center;">
+                <p>GT</p>
+            </div> -->
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>Ours</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>Dynamic 3DGS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 23%; text-align: center;">
+                <p>4D-GS</p>
+            </div>
+            <div class="col compare-title" style="flex: 0 0 25%; text-align: center;">
+                <p>4DGS</p>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Rose</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_rose/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Rose</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_corn_full_subset4/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <hr class="divider" />
+    <script src="data/assets/js/yall.js"></script>
+    <script>
+        yall(
+            {
+                observeChanges: true
+            }
+        );
+    </script>
+</body>
+
+</html>
