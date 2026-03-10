@@ -113,14 +113,9 @@
                 </div>
                 <p>
                     <p align="justify">
-                Modeling the time-varying 3D appearance of plants during their growth poses unique challenges: unlike many dynamic scenes, plants generate new geometry over time as they expand, branch, and differentiate.
-                Recent motion modeling techniques are ill-suited to this problem setting. 
-                For example, deformation fields cannot introduce new geometry, and 4D Gaussian splatting constrains motion to a linear trajectory in space and time and cannot track the same set of Gaussians over time.
-                Here, we introduce a 3D Gaussian flow field representation that models plant growth as a time-varying derivative over Gaussian parameters---position, scale, orientation, color, and opacity---enabling nonlinear and continuous-time growth dynamics.
-                To initialize a sufficient set of Gaussian primitives, we reconstruct the mature plant and learn a process of reverse growth, effectively simulating the plant’s developmental history in reverse.
-                Our approach achieves superior image quality and geometric accuracy compared to prior methods on multi-view timelapse datasets of plant growth, providing a new approach for appearance modeling of growing 3D structures.
-
-
+                Modeling the time-varying 3D appearance of plants during growth poses unique challenges: unlike most dynamic scenes, plants continuously generate new geometry as they expand, branch, and differentiate.
+                Existing dynamic scene representations are ill-suited to this setting: deformation fields provide insufficient constraints to yield physically plausible scene dynamics, and 4D Gaussian splatting represents the same physical structures with different Gaussian primitives at different times, breaking temporal consistency.
+                We introduce GrowFlow, a dynamic representation that couples 3D Gaussian primitives with a neural ordinary differential equation to model plant growth as a continuous flow field over geometric parameters (position, scale, and orientation). Our representation enables consistent appearance rendering and models nonlinear, continuous-time growth dynamics with full temporal correspondences for every primitive. To initialize a sufficient set of Gaussian primitives, we first reconstruct the mature plant and then learn a reverse-growth process, effectively simulating the plant's developmental history in reverse. GrowFlow achieves superior image quality and geometric coherence compared to prior methods on a new, multi-view timelapse dataset of plant growth, and provides the first temporally coherent representation for appearance modeling of growing 3D structures.
                 </p>
             </div>
         </div>
@@ -422,6 +417,16 @@
                 <p>4DGS</p>
             </div>
         </div>
+                <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Paperwhite novel view</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_paperwhite_full_subset4/renders/concat/r_0/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
         <div class="row captioned_videos">
             <div class="row mb-4 method-row">
                 <div class="method-label"><p>Rose novel view</p></div>
@@ -471,6 +476,16 @@
                 <p>4DGS</p>
             </div>
         </div>
+                <div class="row captioned_videos">
+            <div class="row mb-4 method-row">
+                <div class="method-label"><p>Paperwhite</p></div>
+            </div>
+            <div class="col">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/pi_paperwhite_full_subset4/point_clouds/concat/all_methods_stacked.mp4"></video>
+                </div>
+            </div>
+        </div>
         <div class="row captioned_videos">
             <div class="row mb-4 method-row">
                 <div class="method-label"><p>Rose</p></div>
@@ -493,7 +508,25 @@
         </div>
     </div>
 
-
+    <hr class="divider" />
+    <div class="container" style="max-width: 1200px;">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2>Visualizing Flow Field</h2>
+            </div>
+        </div>
+        <div class="row captioned_videos">
+            <div class="col-6">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/synthetic/flow/flow_video.mp4"></video>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="video-compare-container" style="width: 100%">
+                    <video class="video lazy" loop playsinline autoPlay muted src="media/captured/flow/flow_video.mp4"></video>
+                </div>
+            </div>
+    </div>
 
     <hr class="divider"/>
     <div class="container" style="max-width: 768px;">
